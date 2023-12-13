@@ -17,7 +17,7 @@ BUILDNUM ?= 1
 VERSION ?= 0.0.1
 
 DOCKER_PLATFORMS ?= linux/amd64,linux/arm64
-TARGET ?= load
+OUTPUT ?= docker
 
 geth:
 	$(GORUN) build/ci.go install ./cmd/geth
@@ -61,5 +61,5 @@ docker-cloud:
 		--build-arg VERSION=$(VERSION) \
 		--build-arg COMMIT=$(GIT_COMMIT) \
 		--build-arg BUILDNUM=$(BUILDNUM) \
-		$(if $(TARGET:local=),--load,--push) \
+		--output=type=$(OUTPUT) \
 		-f Dockerfile.scalind.cloud .
