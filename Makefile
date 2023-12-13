@@ -8,6 +8,17 @@ GOBIN = ./build/bin
 GO ?= latest
 GORUN = go run
 
+DOCKER_REGISTRY ?= dock.getra.team
+DOCKER_REPOSITORY ?= scalind/op-geth
+IMAGE_TAG ?= latest
+
+GIT_COMMIT ?= $(shell git rev-list -1 HEAD)
+BUILDNUM ?= 1
+VERSION ?= 0.0.1
+
+DOCKER_PLATFORMS ?= linux/amd64,linux/arm64
+TARGET ?= load
+
 geth:
 	$(GORUN) build/ci.go install ./cmd/geth
 	@echo "Done building."
@@ -42,3 +53,13 @@ forkdiff:
 		--mount src=$(shell pwd),target=/host-pwd,type=bind \
 		protolambda/forkdiff:latest \
 		-repo /host-pwd/ -fork /host-pwd/fork.yaml -out /host-pwd/forkdiff.html
+
+docker-cloud:
+	docker buildx build \
+		-t $(DOCKER_REGISTRY)/$(DOCKER_REPOSITORY):$(IMAGE_TAG) \
+		--platform=$(DOCKER_PLATFORMS) \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg COMMIT=$(GIT_COMMIT) \
+		--build-arg BUILDNUM=$(BUILDNUM) \
+		$(if $(TARGET:local=),--load,--push) \
+		-f Dockerfile.scalind.cloud .
