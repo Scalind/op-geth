@@ -39,7 +39,7 @@ else
 fi
 
 if [[ -f /secrets/jwt.txt ]]; then
-  ARGS="--l2.jwt-secret=/secrets/jwt.txt $ARGS"
+  ARGS="--authrpc.jwtsecret=/secrets/jwt.txt $ARGS"
 else
   echo "ERROR: File \"/secrets/jwt.txt\" should be present"
   exit 1
@@ -52,6 +52,6 @@ else
   exit 1
 fi
 
-ARGS="--http --http.corsdomain=\"*\" --http.vhosts=\"*\" --http.addr=0.0.0.0 --http.api=web3,debug,eth,erigon,txpool,net,engine --ws --ws.api=debug,eth,erigon,txpool,net,engine --nodiscover --maxpeers=0 --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 --authrpc.jwtsecret=./jwt.txt --rollup.disabletxpoolgossip=true --syncmode=full --gcmode=archive --ws.addr=0.0.0.0 --ws.port=8546 --ws.origins=\"*\" $ARGS"
+ARGS="--http --http.corsdomain=\"*\" --http.vhosts=\"*\" --http.addr=0.0.0.0 --http.api=web3,debug,eth,erigon,txpool,net,engine --ws --ws.api=debug,eth,erigon,txpool,net,engine --nodiscover --maxpeers=0 --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 --authrpc.jwtsecret=./jwt.txt --rollup.disabletxpoolgossip=true --syncmode=full --gcmode=archive --ws.addr=0.0.0.0 --ws.port=8546 --ws.origins=\"*\" --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 $ARGS"
 
 geth $ARGS
