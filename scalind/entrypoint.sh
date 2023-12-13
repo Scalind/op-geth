@@ -30,7 +30,7 @@ fi
 if [[ -f ~/configs/genesis.json ]]; then
   if [[ ! -d /volume/datadir/geth ]]; then
     echo "INFO: Data not found. Initializing from genesis file"
-    geth init $ARGS ~/configs/genesis.json
+    geth init $ARGS ~/configs/genesis.json || exit 1
     echo "INFO: Chain datadir initialized"
   fi
 else
