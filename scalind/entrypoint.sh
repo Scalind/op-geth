@@ -52,6 +52,6 @@ else
   exit 1
 fi
 
-ARGS="--http --http.corsdomain=\"*\" --http.vhosts=\"*\" --http.addr=0.0.0.0 --http.api=web3,debug,eth,txpool,net,engine --ws --ws.api=debug,eth,txpool,net,engine --nodiscover --maxpeers=0 --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 --authrpc.jwtsecret=./jwt.txt --rollup.disabletxpoolgossip=true --syncmode=full --gcmode=archive --ws.addr=0.0.0.0 --ws.port=8546 --ws.origins=\"*\" --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 $ARGS"
+ARGS="--http --http.corsdomain=* --http.vhosts=* --http.addr=0.0.0.0 --http.api=web3,debug,eth,txpool,net,engine --ws --ws.api=debug,eth,txpool,net,engine --nodiscover --maxpeers=0 --authrpc.vhosts="*" --authrpc.addr=0.0.0.0 --authrpc.port=8551 --authrpc.jwtsecret=./jwt.txt --rollup.disabletxpoolgossip=true --syncmode=full --gcmode=archive --ws.addr=0.0.0.0 --ws.port=8546 --ws.origins=* --authrpc.vhosts=* --authrpc.addr=0.0.0.0 --authrpc.port=8551 $ARGS"
 
 geth $ARGS
